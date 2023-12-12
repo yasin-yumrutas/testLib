@@ -1,4 +1,4 @@
-package timeLib
+package TimeLib
 
 type TimeYasin struct {
 	Saniye string
