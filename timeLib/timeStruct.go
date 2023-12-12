@@ -1,6 +1,6 @@
 package timeLib
 
-type timeYasin struct {
+type TimeYasin struct {
 	Saniye string
 	Saat   string
 	Dakika int
