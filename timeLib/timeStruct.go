@@ -6,6 +6,10 @@ import (
 	"time"
 )
 
+type Blockchain struct {
+	Chain []Block
+}
+
 type Block struct {
 	Index     int
 	Timestamp string
@@ -31,4 +35,10 @@ func CalculateHash(block Block) string {
 	h.Write([]byte(record))
 	hashed := h.Sum(nil)
 	return hex.EncodeToString(hashed)
+}
+
+func (bc *Blockchain) AddBlock(data string) {
+	prevBlock := bc.Chain[len(bc.Chain)-1]
+	newBlock := CreateBlock(prevBlock.Index+1, data, prevBlock.Hash)
+	bc.Chain = append(bc.Chain, newBlock)
 }
