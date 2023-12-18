@@ -3,6 +3,7 @@ package TimeLib
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"fmt"
 	"time"
 )
 
@@ -41,4 +42,22 @@ func (bc *Blockchain) AddBlock(data string) {
 	prevBlock := bc.Chain[len(bc.Chain)-1]
 	newBlock := CreateBlock(prevBlock.Index+1, data, prevBlock.Hash)
 	bc.Chain = append(bc.Chain, newBlock)
+}
+
+func Running() {
+	genesisBlock := CreateBlock(0, "Genesis Block", "")
+	blockchain := Blockchain{Chain: []Block{genesisBlock}}
+
+	fmt.Println("Genesis Block Oluşturuldu : ")
+	fmt.Printf("Index: %d\nTimestamp: %s\nData: %s\nPrevHash: %s\nHash: %s\n",
+		genesisBlock.Index, genesisBlock.Timestamp, genesisBlock.Data, genesisBlock.PrevHash, genesisBlock.Hash)
+
+	fmt.Println("\nBir sonraki bloğu eklemek için veri girin:")
+	var data string
+	fmt.Scanln(&data)
+	blockchain.AddBlock(data)
+
+	newBlock := blockchain.Chain[len(blockchain.Chain)-1]
+	fmt.Printf("\nYeni Block Oluşturuldu:\nIndex: %d\nTimestamp: %s\nData: %s\nPrevHash: %s\nHash: %s\n", newBlock.Index, newBlock.Timestamp, newBlock.Data, newBlock.PrevHash, newBlock.Hash)
+
 }
